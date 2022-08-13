@@ -47,6 +47,9 @@ const Home = () => {
   const [millerCognome, setMillerCognome] = useState([]);
   const [searchNome, setSearchNome] = useState([]);
   const [searchCognome, setSearchCognome] = useState([]);
+  const [errorNome, setErrorNome] = useState();
+  const [errorCognome, setErrorCognome] = useState(false);
+
   const handleCheck = () => {
     verifyName(millerNome, millerCognome);
   };
@@ -75,7 +78,7 @@ const Home = () => {
     }
     if (cognomePersona == "") {
       if (nomePersona == "") {
-        alert("Scrivi un Come esistente!");
+        alert("Scrivi un Cognome esistente!");
       }
     } else {
       if (cognomePersona[0].Cognome === searchCognome) {
@@ -111,6 +114,13 @@ const Home = () => {
         }
       }
       setMillerNome(millerX);
+
+      /* Cambio colore Input Nome*/
+      if (millerX == "") {
+        setErrorNome(false);
+      } else {
+        setErrorNome(true);
+      }
     }
   };
   const handleChangeCognome = (e) => {
@@ -130,6 +140,13 @@ const Home = () => {
       }
       console.log(millerX);
       setMillerCognome(millerX);
+
+      /* Cambio colore Input Cognome*/
+      if (millerX == "") {
+        setErrorCognome(false);
+      } else {
+        setErrorCognome(true);
+      }
     }
   };
 
@@ -142,24 +159,35 @@ const Home = () => {
   return (
     <>
       <div className="h-screen flex-col flex flex-wrap justify-center bg-black">
+        <span className="block text-xl text-center font-medium text-slate-200 mb-10">
+            Web App in costruzione...
+            <br /> Inserire solo nome o cognome e poi controllare!
+        </span>
         <form className="flex align-middle w-full justify-center">
-          <label className="text-center m-1">
-            <span className="block text-2xl font-medium text-slate-700">
+          <label className="text-center m-1 space-y-2">
+            <span className="block text-2xl font-medium text-slate-500">
               Nome
             </span>
-            <input className="rounded-md" onChange={handleChangeNome} />
+            <input
+              style={{ borderColor: errorNome ? "green" : "red" }}
+              className="rounded-md border-4 p-1 px-2 text-center focus:outline-none"
+              onChange={handleChangeNome}
+              />
           </label>
-          <label className="text-center m-1">
-            <span className="block text-2xl font-medium text-slate-700">
+          <label className="text-center m-1 space-y-2">
+            <span className="block text-2xl font-medium text-slate-500">
               Cognome
             </span>
-            <input className="rounded-md" onChange={handleChangeCognome} />
+            <input 
+            style={{ borderColor: errorCognome ? "green" : "red" }}
+            className="rounded-md border-4 p-1 px-2 text-center focus:outline-none" onChange={handleChangeCognome} />
           </label>
         </form>
         <div className="flex mx-auto p-4">
           <button
+            style={{ backgroundColor: errorNome ? "green" : "red"}}
             onClick={() => handleCheck()}
-            className="bg-emerald-600 rounded-md p-2 text-white font-bold uppercase"
+            className="bg-green-600 rounded-md p-2 text-white font-bold uppercase shadow-md"
           >
             Controlla!
           </button>
