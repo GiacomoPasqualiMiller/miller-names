@@ -2,12 +2,6 @@ import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 
 const miller = [
-  /*  {
-    Id: 100,
-    Nome: "giacomo",
-    Cognome: "sss",
-    Sezione: "tech",
-  }, */
   {
     Id: 1,
     Nome: "giacomo",
@@ -52,18 +46,84 @@ const miller = [
   },
   {
     Id: 8,
+    Nome: "rosi",
+    Cognome: "oliveira",
+    Sezione: "tech",
+  },
+  {
+    Id: 9,
+    Nome: "paul",
+    Cognome: "renda",
+    Sezione: "tech",
+  },
+  {
+    Id: 10,
     Nome: "paola",
     Cognome: "gatti",
     Sezione: "accounting",
   },
   {
-    Id: 9,
+    Id: 11,
+    Nome: "federica",
+    Cognome: "ferrari",
+    Sezione: "accounting",
+  },
+  {
+    Id: 12,
+    Nome: "marina",
+    Cognome: "galliena",
+    Sezione: "accounting",
+  },
+  {
+    Id: 13,
+    Nome: "marina",
+    Cognome: "cormio",
+    Sezione: "accounting",
+  },
+  {
+    Id: 14,
+    Nome: "arianna",
+    Cognome: "rozza",
+    Sezione: "accounting",
+  },
+  {
+    Id: 15,
+    Nome: "stefania",
+    Cognome: "scarpulla",
+    Sezione: "accounting",
+  },
+  {
+    Id: 16,
+    Nome: "luana",
+    Cognome: "visco",
+    Sezione: "accounting",
+  },
+  {
+    Id: 17,
+    Nome: "romina",
+    Cognome: "zavaglio",
+    Sezione: "accounting",
+  },
+  {
+    Id: 18,
+    Nome: "monica",
+    Cognome: "zuffellato",
+    Sezione: "accounting",
+  },
+  {
+    Id: 19,
+    Nome: "jessica",
+    Cognome: "vanin",
+    Sezione: "accounting",
+  },
+  {
+    Id: 20,
     Nome: "sara",
     Cognome: "manunza",
     Sezione: "paghe",
   },
   {
-    Id: 10,
+    Id: 21,
     Nome: "carlotta",
     Cognome: "tronconi",
     Sezione: "sicurezza",
@@ -84,7 +144,7 @@ const Home = () => {
   const [errorCognome, setErrorCognome] = useState(false);
 
   const handleCheck = () => {
-    verifyName(millerNome, millerCognome);
+    verifyName(millerCognome);
   };
   const goodStickerPop = () => {
     setGoodSticker(true);
@@ -100,17 +160,14 @@ const Home = () => {
     }, 1000);
     return () => clearTimeout(timer);
   };
-  const verifyName = (nomePersona, cognomePersona) => {
+  const verifyName = (cognomeSelect) => {
+    console.log(cognomeSelect);
     //Controlllo
-    if (nomePersona == "" && cognomePersona == "") {
+    if (cognomeSelect == "") {
       badStickerPop();
     } else {
-      if (
-        nomePersona[0].Nome === searchNome &&
-        cognomePersona[0].Cognome === searchCognome &&
-        nomePersona[0].Id === cognomePersona[0].Id
-      ) {
-        if (nomePersona[0].Id === 3) {
+      if (cognomeSelect[0].Cognome === searchCognome) {
+        if (cognomeSelect[0].Id === 3) {
           setKissSticker(true);
           const timer = setTimeout(() => {
             setKissSticker(false);
@@ -160,23 +217,31 @@ const Home = () => {
     if (e.target.value == "") {
       setMillerCognome(millerObj);
     } else {
+      //eseguo for tra i nomi selezionati
       var millerX = []; // popolo l'array
       var i;
-      for (i = 0; i < miller.length; i++) {
+      for (i = 0; i < millerNome.length; i++) {
         if (
-          miller[i].Cognome.toLowerCase().includes(e.target.value.toLowerCase())
+          millerNome[i].Cognome.toLowerCase().includes(
+            e.target.value.toLowerCase()
+          )
         ) {
           setSearchCognome(e.target.value.toLowerCase());
-          millerX.push(miller[i]);
+          millerX.push(millerNome[i]);
         }
       }
       setMillerCognome(millerX);
-
+      console.log(millerX);
       /* Cambio colore Input Cognome*/
       if (millerX == "") {
         setErrorCognome(false);
       } else {
         setErrorCognome(true);
+      }
+
+      /* doppio nome */
+      if (millerNome > 1) {
+        console.log("doppio nome");
       }
     }
   };
@@ -190,8 +255,8 @@ const Home = () => {
   return (
     <>
       <div className="h-screen flex-col flex flex-wrap justify-center bg-black">
-        <span className="block text-xl text-center font-medium text-slate-200 mb-10">
-          Web App in costruzione...
+        <span className="block text-xl text-center font-medium text-slate-200">
+          Indovina sia il Nome che il Cognome
         </span>
         <form className="flex flex-wrap align-middle w-full justify-center">
           <label className="text-center m-1 space-y-2">
@@ -224,7 +289,9 @@ const Home = () => {
             Controlla!
           </button>
         </div>
+        <NameGame rightAnswer={goodStickerPop} badAnswer={badStickerPop} />
       </div>
+      <div></div>
       {/* Image container */}
       <div
         style={{
@@ -262,3 +329,77 @@ const Home = () => {
   );
 };
 export default Home;
+
+const NameGame = (props) => {
+  const [cognomeCasuale, setCognomeCasuale] = useState([]);
+  const [nomeValue, setNomeValue] = useState([]);
+  const [updated, setUpdated] = useState(false);
+  const handleChange = (e) => {
+    setNomeValue(e.target.value);
+  };
+  const verifyName = (e) => {
+    if (nomeValue === miller[cognomeCasuale].Nome) {
+      props.rightAnswer();
+    } else {
+      props.badAnswer();
+    }
+    cognomiRandom();
+    setNomeValue("");
+  };
+  const cognomiRandom = (e) => {
+    const len = miller.length;
+    setCognomeCasuale(Math.floor(Math.random() * len));
+    setUpdated(true);
+  };
+  useEffect(() => {
+    const fetchData = async () => {
+      cognomiRandom();
+    };
+    fetchData();
+  }, []);
+  return (
+    <>
+      <span className="block text-xl text-center font-medium text-slate-200 mt-10">
+        Indovina il Nome
+      </span>
+      <form className="flex flex-wrap align-middle w-full justify-center">
+        <label className="text-center m-1 space-y-2">
+          <span className="block text-2xl font-medium text-slate-500">
+            Nome
+          </span>
+          <input
+            value={nomeValue}
+            onChange={handleChange}
+            className="lowercase rounded-md border-4 p-1 px-2 text-center focus:outline-none"
+          />
+        </label>
+        <label className="text-center m-1 space-y-2">
+          <span className="block text-2xl font-medium text-slate-500">
+            Cognome
+          </span>
+          {/* aspetto il caricamento del valore causale cognome */}
+          {updated ? (
+            <input
+              disabled
+              value={miller[cognomeCasuale].Cognome}
+              className="disabled:bg-white rounded-md border-4 p-1 px-2 text-center focus:outline-none"
+            />
+          ) : (
+            <input
+              disabled
+              className="disabled:bg-white rounded-md border-4 p-1 px-2 text-center focus:outline-none"
+            />
+          )}
+        </label>
+      </form>
+      <div className="flex mx-auto p-4">
+        <button
+          onClick={verifyName}
+          className="bg-green-600 rounded-md p-2 text-white font-bold uppercase shadow-md"
+        >
+          controlla!
+        </button>
+      </div>
+    </>
+  );
+};
