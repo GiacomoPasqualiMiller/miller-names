@@ -161,12 +161,14 @@ const Home = () => {
     return () => clearTimeout(timer);
   };
   const verifyName = (cognomeSelect) => {
-    console.log(cognomeSelect);
     //Controlllo
     if (cognomeSelect == "") {
       badStickerPop();
     } else {
-      if (cognomeSelect[0].Cognome === searchCognome) {
+      if (
+        cognomeSelect[0].Cognome === searchCognome &&
+        cognomeSelect[0].Nome === searchNome
+      ) {
         if (cognomeSelect[0].Id === 3) {
           setKissSticker(true);
           const timer = setTimeout(() => {
@@ -180,6 +182,9 @@ const Home = () => {
         badStickerPop();
       }
     }
+    setTimeout(() => {
+      window.location.reload();
+    }, 500);
   };
 
   const handleChangeNome = (e) => {
@@ -204,11 +209,6 @@ const Home = () => {
         setErrorNome(false);
       } else {
         setErrorNome(true);
-      }
-
-      /* Controllo Nome Uguale */
-      if (millerX.length > 1) {
-        console.log("doppio nome");
       }
     }
   };
@@ -238,11 +238,6 @@ const Home = () => {
       } else {
         setErrorCognome(true);
       }
-
-      /* doppio nome */
-      if (millerNome > 1) {
-        console.log("doppio nome");
-      }
     }
   };
 
@@ -254,10 +249,11 @@ const Home = () => {
   }, []);
   return (
     <>
-      <div className="h-screen flex-col flex flex-wrap justify-center bg-black">
-        <span className="block text-xl text-center font-medium text-slate-200">
-          Indovina sia il Nome che il Cognome
-        </span>
+      <div className="flex-col flex flex-wrap justify-center bg-black p-2 pt-4">
+        <h1 className="text-white text-center text-4xl font-bold">MILLER NAMES</h1>
+        <NameGame rightAnswer={goodStickerPop} badAnswer={badStickerPop} />
+        <SurnameGame rightAnswer={goodStickerPop} badAnswer={badStickerPop} />
+        <span className=" mt-10">Indovina sia il Nome che il Cognome</span>
         <form className="flex flex-wrap align-middle w-full justify-center">
           <label className="text-center m-1 space-y-2">
             <span className="block text-2xl font-medium text-slate-500">
@@ -265,7 +261,7 @@ const Home = () => {
             </span>
             <input
               style={{ borderColor: errorNome ? "green" : "red" }}
-              className="rounded-md border-4 p-1 px-2 text-center focus:outline-none"
+              className="rounded-md border-4 p-1 px-2 text-center capitalize focus:outline-none"
               onChange={handleChangeNome}
             />
           </label>
@@ -275,7 +271,7 @@ const Home = () => {
             </span>
             <input
               style={{ borderColor: errorCognome ? "green" : "red" }}
-              className="rounded-md border-4 p-1 px-2 text-center focus:outline-none"
+              className="rounded-md border-4 p-1 px-2 text-center capitalize focus:outline-none"
               onChange={handleChangeCognome}
             />
           </label>
@@ -289,7 +285,6 @@ const Home = () => {
             Controlla!
           </button>
         </div>
-        <NameGame rightAnswer={goodStickerPop} badAnswer={badStickerPop} />
       </div>
       <div></div>
       {/* Image container */}
@@ -301,13 +296,12 @@ const Home = () => {
               : "none",
         }}
         id="modal"
-        className="hidden fixed top-0 left-0 z-80 w-screen h-screen bg-black/70 flex justify-center items-center"
+        className="fixed top-0 left-0 z-80 w-screen h-screen bg-black/70 flex justify-center items-center"
       >
         <img
           style={{ display: goodSticker ? "flex" : "none" }}
           src={require("../images/good.webp")}
           alt=""
-          className="max-w-[800px] max-h-[600px] object-cover"
         />
         <img
           style={{ display: badSticker ? "flex" : "none" }}
@@ -335,7 +329,7 @@ const NameGame = (props) => {
   const [nomeValue, setNomeValue] = useState([]);
   const [updated, setUpdated] = useState(false);
   const handleChange = (e) => {
-    setNomeValue(e.target.value);
+    setNomeValue(e.target.value.toLowerCase());
   };
   const verifyName = (e) => {
     if (nomeValue === miller[cognomeCasuale].Nome) {
@@ -359,20 +353,8 @@ const NameGame = (props) => {
   }, []);
   return (
     <>
-      <span className="block text-xl text-center font-medium text-slate-200 mt-10">
-        Indovina il Nome
-      </span>
+      <span className=" mt-10">Indovina il Nome</span>
       <form className="flex flex-wrap align-middle w-full justify-center">
-        <label className="text-center m-1 space-y-2">
-          <span className="block text-2xl font-medium text-slate-500">
-            Nome
-          </span>
-          <input
-            value={nomeValue}
-            onChange={handleChange}
-            className="lowercase rounded-md border-4 p-1 px-2 text-center focus:outline-none"
-          />
-        </label>
         <label className="text-center m-1 space-y-2">
           <span className="block text-2xl font-medium text-slate-500">
             Cognome
@@ -382,14 +364,97 @@ const NameGame = (props) => {
             <input
               disabled
               value={miller[cognomeCasuale].Cognome}
-              className="disabled:bg-white rounded-md border-4 p-1 px-2 text-center focus:outline-none"
+              className="disabled:bg-white capitalize rounded-md border-4 p-1 px-2 text-center focus:outline-none"
             />
           ) : (
             <input
               disabled
-              className="disabled:bg-white rounded-md border-4 p-1 px-2 text-center focus:outline-none"
+              className="disabled:bg-white capitalize rounded-md border-4 p-1 px-2 text-center focus:outline-none"
             />
           )}
+        </label>
+        <label className="text-center m-1 space-y-2">
+          <span className="block text-2xl font-medium text-slate-500">
+            Nome
+          </span>
+          <input
+            value={nomeValue}
+            onChange={handleChange}
+            className="capitalize rounded-md border-4 p-1 px-2 text-center focus:outline-none"
+          />
+        </label>
+      </form>
+      <div className="flex mx-auto p-4">
+        <button
+          onClick={verifyName}
+          className="bg-green-600 rounded-md p-2 text-white font-bold uppercase shadow-md"
+        >
+          controlla!
+        </button>
+      </div>
+    </>
+  );
+};
+/* Indovina il cognome */
+const SurnameGame = (props) => {
+  const [nomeCasuale, setNomeCasuale] = useState([]);
+  const [cognomeValue, setCognomeValue] = useState([]);
+  const [updated, setUpdated] = useState(false);
+  const handleChange = (e) => {
+    setCognomeValue(e.target.value.toLowerCase());
+    console.log(miller[nomeCasuale]);
+  };
+  const verifyName = (e) => {
+    if (cognomeValue === miller[nomeCasuale].Cognome) {
+      props.rightAnswer();
+    } else {
+      props.badAnswer();
+    }
+    nomiRandom();
+    setCognomeValue("");
+  };
+  const nomiRandom = (e) => {
+    const len = miller.length;
+    setNomeCasuale(Math.floor(Math.random() * len));
+    setUpdated(true);
+  };
+  useEffect(() => {
+    const fetchData = async () => {
+      nomiRandom();
+    };
+    fetchData();
+  }, []);
+  return (
+    <>
+      <span className=" mt-10">Indovina il Cognome</span>
+      <form className="flex flex-wrap align-middle w-full justify-center">
+        <label className="text-center m-1 space-y-2">
+          <span className="block text-2xl font-medium text-slate-500">
+            Nome
+          </span>
+          {/* aspetto il caricamento del valore causale cognome */}
+          {updated ? (
+            <input
+              disabled
+              value={miller[nomeCasuale].Nome}
+              className="disabled:bg-white capitalize rounded-md border-4 p-1 px-2 text-center focus:outline-none"
+            />
+          ) : (
+            <input
+              disabled
+              className="disabled:bg-white capitalize rounded-md border-4 p-1 px-2 text-center focus:outline-none"
+            />
+          )}
+        </label>
+        <label className="text-center m-1 space-y-2">
+          <span className="block text-2xl font-medium text-slate-500">
+            Cognome
+          </span>
+          <input
+            value={cognomeValue}
+            onChange={handleChange}
+            className="capitalize rounded-md border-4 p-1 px-2 text-center focus:outline-none"
+          />
         </label>
       </form>
       <div className="flex mx-auto p-4">
