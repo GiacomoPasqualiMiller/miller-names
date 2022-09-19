@@ -103,12 +103,6 @@ const miller = [
     Sezione: "accounting",
   },
   {
-    Id: 17,
-    Nome: "romina",
-    Cognome: "zavaglio",
-    Sezione: "accounting",
-  },
-  {
     Id: 18,
     Nome: "monica",
     Cognome: "zuffellato",
@@ -429,7 +423,7 @@ const Home = () => {
     setTimerPop(true);
     const timer = setTimeout(() => {
       setTimerPop(false);
-    }, 1000);
+    }, 2000);
     reloadPage();
   };
   const badStickerPop = () => {
@@ -438,7 +432,7 @@ const Home = () => {
     setTimerPop(true);
     const timer = setTimeout(() => {
       setTimerPop(false);
-    }, 1000);
+    }, 2000);
     reloadPage();
   };
   const reloadPage = () => {
@@ -460,7 +454,7 @@ const Home = () => {
           setTimerPop(true);
           const timer = setTimeout(() => {
             setTimerPop(false);
-          }, 1000);
+          }, 2000);
         } else {
           goodStickerPop(cognomeSelect);
         }
