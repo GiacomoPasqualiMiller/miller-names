@@ -4,6 +4,9 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 
 //Pages Import
 import Home from "./components/Home";
+import Nome from "./components/Nome";
+import Foto from "./components/Cognome";
+import Special from "./components/Special";
 
 const App = () => {
   return (
@@ -11,6 +14,10 @@ const App = () => {
       <BrowserRouter>
         <Routes>
           <Route path="/" element={<Home />} />
+          <Route path="/nome" element={<Nome />} />
+          <Route path="/immagini" element={<Foto />} />
+          <Route path="/special" element={<Special />} />
+
         </Routes>
       </BrowserRouter>
     </>
