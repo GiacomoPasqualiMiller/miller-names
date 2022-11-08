@@ -16,6 +16,7 @@ const Nome = () => {
   const [timerPop, setTimerPop] = useState(false);
   const [imgPop, setImgPop] = useState();
   const location = useLocation();
+  const navigate = useNavigate();
   localStorage.setItem("nomi_indovinati", count);
   const handleChange = (e) => {
     setNomeValue(e.target.value.toLowerCase());
@@ -43,11 +44,11 @@ const Nome = () => {
     //reloadPage();
   };
   const verifyName = (e) => {
-    console.log(millers[cognomeCasuale])
+    console.log(millers[cognomeCasuale]);
     if (nomeValue === millers[cognomeCasuale].Nome) {
       setCount(count + 1);
     } else {
-      setCorrezzione(millers[cognomeCasuale].Nome)
+      setCorrezzione(millers[cognomeCasuale].Nome);
       badStickerPop();
     }
     cognomiRandom();
@@ -55,7 +56,6 @@ const Nome = () => {
   };
   const cognomiRandom = () => {
     setCognomeCasuale(Math.floor(Math.random() * 67));
-    
   };
   useEffect(() => {
     const fetchData = async () => {
@@ -71,6 +71,28 @@ const Nome = () => {
   return (
     <>
       <div className="flex-col flex flex-wrap justify-center bg-black p-2 pt-4 w-full h-screen">
+        <div class="w-50 h-50 absolute top-2 left-2">
+          <button
+            style={{ color: "white" }}
+            onClick={() => navigate("/")}
+            id="back-btn"
+            className="w-50 h-50 bg-gray-700 focus:outlink-none focus:ring-4 focus:ring-gray-700 ring-gray-200 rounded-lg p-2.5 "
+          >
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              width="16"
+              height="16"
+              fill="currentColor"
+              class="bi bi-arrow-left"
+              viewBox="0 0 16 16"
+            >
+              <path
+                fill-rule="evenodd"
+                d="M15 8a.5.5 0 0 0-.5-.5H2.707l3.147-3.146a.5.5 0 1 0-.708-.708l-4 4a.5.5 0 0 0 0 .708l4 4a.5.5 0 0 0 .708-.708L2.707 8.5H14.5A.5.5 0 0 0 15 8z"
+              />
+            </svg>
+          </button>
+        </div>
         <span className=" mt-10">Indovina il Nome</span>
         <span className="font-bold text-2xl">
           {localStorage.getItem("nomi_indovinati")}
@@ -105,10 +127,10 @@ const Nome = () => {
             />
           </label>
         </form>
-        <div className="flex mx-auto p-4">
+        <div className="flex mx-auto p-4 mt-4">
           <button
             onClick={verifyName}
-            className="bg-green-600 rounded-md p-2 text-white font-bold uppercase shadow-md"
+            className="bg-black border border-white shadow-white text-2xl rounded-md p-3 text-white font-bold uppercase shadow-md"
           >
             controlla!
           </button>
@@ -124,8 +146,10 @@ const Nome = () => {
               }}
               id="modal"
               className="fixed top-0 left-0 z-80 w-screen h-screen bg-black/70 flex flex-col justify-center items-center"
-              >
-              <span className="font-bold text-4xl uppercase">{correzzione} !</span>
+            >
+              <span className="font-bold text-4xl uppercase">
+                {correzzione} !
+              </span>
               <img
                 style={{ display: timerPop ? "flex" : "none" }}
                 src={require(`../images/${imgPop}`)}

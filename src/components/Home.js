@@ -536,13 +536,13 @@ const Home = () => {
         <h1 className="text-white text-center text-4xl font-bold mb-2">
           MILLERS
         </h1>
-        <button className="mt-10 w-1/2 mx-auto shadow-md shadow-white text-white border-red-100 border-2 rounded-md p-2" onClick={()=> navigate('./Nome',{state: {millers: miller}})}>
+        <button className="mt-10 w-1/2 mx-auto shadow-md shadow-white text-white border-red-100 border-2 rounded-md p-2" onClick={()=> navigate('/nome',{state: {millers: miller}})}>
           Name
         </button>
-        {/* <button className="text-white border-red-100 border-2 rounded-md p-2" onClick={()=> navigate('./Immagini',{state: {millers: miller}})}>
+        <button className="mt-5 w-1/2 mx-auto shadow-md shadow-white text-white border-red-100 border-2 rounded-md p-2" onClick={()=> navigate('/immagini',{state: {millers: miller}})}>
           Pics
-        </button> */}
-        <button className="mt-5 w-1/2 mx-auto shadow-md shadow-white text-white border-red-100 border-2 rounded-md p-2" onClick={()=> navigate('./Special',{state: {millers: miller}})}>
+        </button>
+        <button className="mt-5 w-1/2 mx-auto shadow-md shadow-white text-white border-red-100 border-2 rounded-md p-2" onClick={()=> navigate('/special',{state: {millers: miller}})}>
           Special
         </button>
         {/* <Nome

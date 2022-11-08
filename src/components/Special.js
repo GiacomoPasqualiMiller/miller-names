@@ -15,6 +15,17 @@ const Special = () => {
   const [errorCognome, setErrorCognome] = useState(false);
   const [imgPop, setImgPop] = useState();
   const [timerPop, setTimerPop] = useState(false);
+  const [nomeValue, setNomeValue] = useState([]);
+  const [cognomeValue, setCognomeValue] = useState([]);
+  const handleValueNome = (e) => {
+    handleChangeNome(e)
+    setNomeValue(e.target.value.toLowerCase());
+  };
+  const handleValueCognome = (e) => {
+    handleChangeCognome(e)
+
+    setCognomeValue(e.target.value.toLowerCase());
+  };
   const handleCheck = () => {
     verifyName(millerCognome);
   };
@@ -65,6 +76,8 @@ const Special = () => {
         //reloadPage();
       }
     }
+    setNomeValue("")
+    setCognomeValue("")
     //reloadPage();
   };
 
@@ -132,6 +145,28 @@ const Special = () => {
   return (
     <>
       <div className="flex-col flex flex-wrap justify-center bg-black p-2 pt-4 w-full h-screen">
+      <div class="w-50 h-50 absolute top-2 left-2">
+          <button
+            style={{ color: "white" }}
+            onClick={() => navigate("/")}
+            id="back-btn"
+            className="w-50 h-50 bg-gray-700 focus:outlink-none focus:ring-4 focus:ring-gray-700 ring-gray-200 rounded-lg p-2.5 "
+          >
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              width="16"
+              height="16"
+              fill="currentColor"
+              class="bi bi-arrow-left"
+              viewBox="0 0 16 16"
+            >
+              <path
+                fill-rule="evenodd"
+                d="M15 8a.5.5 0 0 0-.5-.5H2.707l3.147-3.146a.5.5 0 1 0-.708-.708l-4 4a.5.5 0 0 0 0 .708l4 4a.5.5 0 0 0 .708-.708L2.707 8.5H14.5A.5.5 0 0 0 15 8z"
+              />
+            </svg>
+          </button>
+        </div>
         <span className=" mt-10">Indovina sia il Nome che il Cognome</span>
         <form className="flex flex-wrap align-middle w-full justify-center">
           <label className="text-center m-1 space-y-2">
@@ -139,9 +174,10 @@ const Special = () => {
               Nome
             </span>
             <input
-              style={{ borderColor: errorNome ? "green" : "red" }}
+            value={nomeValue}
+              //style={{ borderColor:  nomeValue === ""? "green" : "red" }}
               className="rounded-md border-4 p-1 px-2 text-center capitalize focus:outline-none"
-              onChange={handleChangeNome}
+              onChange={handleValueNome}
             />
           </label>
           <label className="text-center m-1 space-y-2">
@@ -149,17 +185,18 @@ const Special = () => {
               Cognome
             </span>
             <input
-              style={{ borderColor: errorCognome ? "green" : "red" }}
+            value={cognomeValue}
+              //style={{ borderColor: cognomeValue === "" ? "green" : "red" }}
               className="rounded-md border-4 p-1 px-2 text-center capitalize focus:outline-none"
-              onChange={handleChangeCognome}
+              onChange={handleValueCognome}
             />
           </label>
         </form>
-        <div className="flex mx-auto p-4">
+        <div className="flex mx-auto p-4 mt-4">
           <button
-            style={{ backgroundColor: errorNome ? "green" : "red" }}
+            //style={{ backgroundColor:  "green"}}
             onClick={() => handleCheck()}
-            className="bg-green-600 rounded-md p-2 text-white font-bold uppercase shadow-md"
+            className="bg-black border border-white shadow-white rounded-md p-3 text-2xl text-white font-bold uppercase shadow-md"
           >
             Controlla!
           </button>
