@@ -18,11 +18,11 @@ const Special = () => {
   const [nomeValue, setNomeValue] = useState([]);
   const [cognomeValue, setCognomeValue] = useState([]);
   const handleValueNome = (e) => {
-    handleChangeNome(e)
+    handleChangeNome(e);
     setNomeValue(e.target.value.toLowerCase());
   };
   const handleValueCognome = (e) => {
-    handleChangeCognome(e)
+    handleChangeCognome(e);
 
     setCognomeValue(e.target.value.toLowerCase());
   };
@@ -76,8 +76,8 @@ const Special = () => {
         //reloadPage();
       }
     }
-    setNomeValue("")
-    setCognomeValue("")
+    setNomeValue("");
+    setCognomeValue("");
     //reloadPage();
   };
 
@@ -145,7 +145,7 @@ const Special = () => {
   return (
     <>
       <div className="flex-col flex flex-wrap justify-center bg-black p-2 pt-4 w-full h-screen">
-      <div class="w-50 h-50 absolute top-2 left-2">
+        <div className="w-50 h-50 absolute top-2 left-2">
           <button
             style={{ color: "white" }}
             onClick={() => navigate("/")}
@@ -157,11 +157,11 @@ const Special = () => {
               width="16"
               height="16"
               fill="currentColor"
-              class="bi bi-arrow-left"
+              className="bi bi-arrow-left"
               viewBox="0 0 16 16"
             >
               <path
-                fill-rule="evenodd"
+                fillRule="evenodd"
                 d="M15 8a.5.5 0 0 0-.5-.5H2.707l3.147-3.146a.5.5 0 1 0-.708-.708l-4 4a.5.5 0 0 0 0 .708l4 4a.5.5 0 0 0 .708-.708L2.707 8.5H14.5A.5.5 0 0 0 15 8z"
               />
             </svg>
@@ -174,7 +174,7 @@ const Special = () => {
               Nome
             </span>
             <input
-            value={nomeValue}
+              value={nomeValue}
               //style={{ borderColor:  nomeValue === ""? "green" : "red" }}
               className="rounded-md border-4 p-1 px-2 text-center capitalize focus:outline-none"
               onChange={handleValueNome}
@@ -185,7 +185,7 @@ const Special = () => {
               Cognome
             </span>
             <input
-            value={cognomeValue}
+              value={cognomeValue}
               //style={{ borderColor: cognomeValue === "" ? "green" : "red" }}
               className="rounded-md border-4 p-1 px-2 text-center capitalize focus:outline-none"
               onChange={handleValueCognome}

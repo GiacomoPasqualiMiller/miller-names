@@ -61,6 +61,7 @@ const miller = [
     Nome: "federica",
     Cognome: "ferrari",
     Sezione: "accounting",
+    Foto: "Federica-Ferrari.png"
   },
   {
     Id: 12,
@@ -73,6 +74,7 @@ const miller = [
     Nome: "marina",
     Cognome: "cormio",
     Sezione: "accounting",
+    Foto: "Marina-Cormio.png"
   },
   {
     Id: 14,
@@ -85,6 +87,7 @@ const miller = [
     Nome: "stefania",
     Cognome: "scarpulla",
     Sezione: "accounting",
+    Foto: "Stefania-Scarpulla.png"
   },
   {
     Id: 16,
@@ -413,6 +416,7 @@ const Foto = () => {
   const [nomeValue, setNomeValue] = useState([]);
   const [cognomeValue, setCognomeValue] = useState([]);
   const [imgCasuale, setImgCasuale] = useState([]);
+  const [personChoosen, setPersonChoosen] = useState([]);
   const handleValueNome = (e) => {
     handleChangeNome(e)
     setNomeValue(e.target.value.toLowerCase());
@@ -423,11 +427,10 @@ const Foto = () => {
     setCognomeValue(e.target.value.toLowerCase());
   };
   const handleCheck = () => {
-    verifyName(millerCognome);
+    verifyName(nomeValue, cognomeValue);
   };
   const goodStickerPop = () => {
-    const x = { Foto: "good.webp" };
-    setImgPop(x.Foto);
+    setImgPop("good.webp");
     setTimerPop(true);
     const timer = setTimeout(() => {
       setTimerPop(false);
@@ -449,9 +452,17 @@ const Foto = () => {
       window.location.reload();
     }, 2000);
   };
-  const verifyName = (cognomeSelect) => {
+  const verifyName = (nome, cognome) => {
+    if(nome === personChoosen.Nome && cognome === personChoosen.Cognome){
+      goodStickerPop()
+    }else{
+      badStickerPop();
+    }
+    setNomeValue("")
+    setCognomeValue("")
+    imgCreator()
     //Controlllo
-    if (cognomeSelect == "") {
+    /* if (cognomeSelect == "") {
       badStickerPop();
     } else {
       if (
@@ -471,7 +482,7 @@ const Foto = () => {
         badStickerPop();
         //reloadPage();
       }
-    }
+    } */
     setNomeValue("")
     setCognomeValue("")
     //reloadPage();
@@ -531,19 +542,21 @@ const Foto = () => {
     }
   };
   const cognomiRandom = (obj) => {
-    console.log(obj)
-    /* setImgCasuale(Math.floor(Math.random() * obj.length)); */
     let choosen= obj[Math.floor(Math.random()*obj.length)]
     console.log(choosen)
     setImgCasuale(choosen.Foto)
+    setPersonChoosen(choosen)
     setUpdated(true);
   };
+  const imgCreator=()=>{
+    const millerImg= miller.filter((elm)=> elm.Foto !== undefined)
+    console.log(millerImg)
+    setMillers(millerImg);
+    cognomiRandom(millerImg);
+  }
   useEffect(() => {
     const fetchData = async () => {
-      const millerImg= miller.filter((elm)=> elm.Foto !== undefined)
-      console.log(millerImg)
-      setMillers(millerImg);
-      cognomiRandom(millerImg);
+      imgCreator()
     };
     fetchData();
   }, []);
@@ -573,10 +586,10 @@ const Foto = () => {
             </svg>
           </button>
         </div>
-        <span className=" mt-10">Indovina il Nome e il Cognome</span>
-        <div className="mt-6 space-y-12 lg:grid lg:grid-cols-3 lg:gap-x-6 lg:space-y-0 m-10">
-        <div className="group relative">
-        {updated ? (<div className="relative h-80 w-full overflow-hidden rounded-lg bg-white group-hover:opacity-75 sm:aspect-w-2 sm:aspect-h-1 sm:h-64 lg:aspect-w-1 lg:aspect-h-1">
+        <span className="">Indovina il Nome e il Cognome</span>
+        <div className="mt-2 space-y-12 lg:grid lg:grid-cols-3 lg:gap-x-6 lg:space-y-0 mx-10">
+        <div className="group relative ">
+        {updated ? (<div className="relative h-60 w-60 overflow-hidden rounded-lg bg-white group-hover:opacity-75 sm:aspect-w-2 sm:aspect-h-1 sm:h-64 lg:aspect-w-1 lg:aspect-h-1 mx-auto">
             <img src={require(`../images/pics/${imgCasuale}`)} className="h-full w-full object-cover object-center " />
           </div>): (
             <div className="relative h-80 w-full overflow-hidden rounded-lg bg-white group-hover:opacity-75 sm:aspect-w-2 sm:aspect-h-1 sm:h-64 lg:aspect-w-1 lg:aspect-h-1">
