@@ -13,6 +13,7 @@ const miller = [
     Nome: "federico",
     Cognome: "barenghi",
     Sezione: "tech",
+    Foto: "Federico-Barenghi.png",
   },
   {
     Id: 4,
@@ -25,18 +26,21 @@ const miller = [
     Nome: "martina",
     Cognome: "rosti",
     Sezione: "tech",
+    Foto: "Martina-Rosti.png",
   },
   {
     Id: 6,
     Nome: "mattia",
     Cognome: "pavesi",
     Sezione: "tech",
+    Foto: "Mattia-Pavesi.png",
   },
   {
     Id: 7,
     Nome: "ian",
     Cognome: "cavenaghi",
     Sezione: "tech",
+    Foto: "cavenaghi.png",
   },
   {
     Id: 8,
@@ -61,7 +65,7 @@ const miller = [
     Nome: "federica",
     Cognome: "ferrari",
     Sezione: "accounting",
-    Foto: "Federica-Ferrari.png"
+    Foto: "Federica-Ferrari.png",
   },
   {
     Id: 12,
@@ -74,38 +78,42 @@ const miller = [
     Nome: "marina",
     Cognome: "cormio",
     Sezione: "accounting",
-    Foto: "Marina-Cormio.png"
+    Foto: "Marina-Cormio.png",
   },
   {
     Id: 14,
     Nome: "arianna",
     Cognome: "rozza",
     Sezione: "accounting",
+    Foto: "Arianna-Rozza.png",
   },
   {
     Id: 15,
     Nome: "stefania",
     Cognome: "scarpulla",
     Sezione: "accounting",
-    Foto: "Stefania-Scarpulla.png"
+    Foto: "Stefania-Scarpulla.png",
   },
   {
     Id: 16,
     Nome: "luana",
     Cognome: "visco",
     Sezione: "accounting",
+    Foto: "Luana-Visco.png",
   },
   {
     Id: 18,
     Nome: "monica",
     Cognome: "zuffellato",
     Sezione: "accounting",
+    Foto: "Monica-Zuffellato.png",
   },
   {
     Id: 19,
     Nome: "jessica",
     Cognome: "vanin",
     Sezione: "accounting",
+    Foto: "Jessica-Vanin.png",
   },
   {
     Id: 20,
@@ -172,6 +180,7 @@ const miller = [
     Nome: "valentina",
     Cognome: "bellinzoni",
     Sezione: "paghe",
+    Foto: "Valentina-Mercuri.png",
   },
   {
     Id: 31,
@@ -298,18 +307,21 @@ const miller = [
     Nome: "elena",
     Cognome: "ligorio",
     Sezione: "accounting",
+    Foto: "Elena-Ligorio.png",
   },
   {
     Id: 52,
     Nome: "chiara",
     Cognome: "monachino",
     Sezione: "accounting",
+    Foto: "Chiara-Monachino.png",
   },
   {
     Id: 53,
     Nome: "katia",
     Cognome: "capasso",
     Sezione: "accounting",
+    Foto: "Katia-Capasso.png",
   },
   {
     Id: 54,
@@ -336,6 +348,7 @@ const miller = [
     Nome: "sonali",
     Cognome: "fernando",
     Sezione: "sicurezza",
+    Foto: "Sonali-Fernando.png",
   },
   {
     Id: 58,
@@ -348,18 +361,21 @@ const miller = [
     Nome: "katherin",
     Cognome: "machuca",
     Sezione: "sicurezza",
+    Foto: "Kathrin-Machuca.png",
   },
   {
     Id: 60,
     Nome: "luca",
     Cognome: "caffi",
     Sezione: "sicurezza",
+    Foto: "Luca-Caffi.png",
   },
   {
     Id: 61,
     Nome: "matteo",
     Cognome: "caraffini",
     Sezione: "sicurezza",
+    Foto: "Matteo-Caraffini.png",
   },
   {
     Id: 62,
@@ -378,6 +394,7 @@ const miller = [
     Nome: "chiara",
     Cognome: "teresi",
     Sezione: "sicurezza",
+    Foto: "Chiara-Teresi.png",
   },
   {
     Id: 65,
@@ -396,6 +413,14 @@ const miller = [
     Nome: "giacomo",
     Cognome: "pasquali",
     Sezione: "tech",
+    Foto: "Giacomo-Pasquali.png",
+  },
+  {
+    Id: 68,
+    Nome: "greta",
+    Cognome: "cacciabue",
+    Sezione: "accounting",
+    Foto: "Greta-Cacciabue.png",
   },
 ];
 
@@ -418,11 +443,11 @@ const Foto = () => {
   const [imgCasuale, setImgCasuale] = useState([]);
   const [personChoosen, setPersonChoosen] = useState([]);
   const handleValueNome = (e) => {
-    handleChangeNome(e)
+    handleChangeNome(e);
     setNomeValue(e.target.value.toLowerCase());
   };
   const handleValueCognome = (e) => {
-    handleChangeCognome(e)
+    handleChangeCognome(e);
 
     setCognomeValue(e.target.value.toLowerCase());
   };
@@ -453,14 +478,14 @@ const Foto = () => {
     }, 2000);
   };
   const verifyName = (nome, cognome) => {
-    if(nome === personChoosen.Nome && cognome === personChoosen.Cognome){
-      goodStickerPop()
-    }else{
+    if (nome === personChoosen.Nome && cognome === personChoosen.Cognome) {
+      goodStickerPop();
+    } else {
       badStickerPop();
     }
-    setNomeValue("")
-    setCognomeValue("")
-    imgCreator()
+    setNomeValue("");
+    setCognomeValue("");
+    imgCreator();
     //Controlllo
     /* if (cognomeSelect == "") {
       badStickerPop();
@@ -483,8 +508,8 @@ const Foto = () => {
         //reloadPage();
       }
     } */
-    setNomeValue("")
-    setCognomeValue("")
+    setNomeValue("");
+    setCognomeValue("");
     //reloadPage();
   };
 
@@ -542,21 +567,21 @@ const Foto = () => {
     }
   };
   const cognomiRandom = (obj) => {
-    let choosen= obj[Math.floor(Math.random()*obj.length)]
-    console.log(choosen)
-    setImgCasuale(choosen.Foto)
-    setPersonChoosen(choosen)
+    let choosen = obj[Math.floor(Math.random() * obj.length)];
+    console.log(choosen);
+    setImgCasuale(choosen.Foto);
+    setPersonChoosen(choosen);
     setUpdated(true);
   };
-  const imgCreator=()=>{
-    const millerImg= miller.filter((elm)=> elm.Foto !== undefined)
-    console.log(millerImg)
+  const imgCreator = () => {
+    const millerImg = miller.filter((elm) => elm.Foto !== undefined);
+    console.log(millerImg);
     setMillers(millerImg);
     cognomiRandom(millerImg);
-  }
+  };
   useEffect(() => {
     const fetchData = async () => {
-      imgCreator()
+      imgCreator();
     };
     fetchData();
   }, []);
@@ -564,7 +589,7 @@ const Foto = () => {
   return (
     <>
       <div className="flex-col flex flex-wrap justify-center bg-black p-2 pt-4 w-full h-screen">
-      <div className="w-50 h-50 absolute top-2 left-2">
+        <div className="w-50 h-50 absolute top-2 left-2">
           <button
             style={{ color: "white" }}
             onClick={() => navigate("/")}
@@ -586,38 +611,36 @@ const Foto = () => {
             </svg>
           </button>
         </div>
-        <span className="">Indovina il Nome e il Cognome</span>
-        <div className="mt-2 space-y-12 lg:grid lg:grid-cols-3 lg:gap-x-6 lg:space-y-0 mx-10">
-        <div className="group relative ">
-        {updated ? (<div className="relative h-60 w-60 overflow-hidden rounded-lg bg-white group-hover:opacity-75 sm:aspect-w-2 sm:aspect-h-1 sm:h-64 lg:aspect-w-1 lg:aspect-h-1 mx-auto">
-            <img src={require(`../images/pics/${imgCasuale}`)} className="h-full w-full object-cover object-center " />
-          </div>): (
-            <div className="relative h-80 w-full overflow-hidden rounded-lg bg-white group-hover:opacity-75 sm:aspect-w-2 sm:aspect-h-1 sm:h-64 lg:aspect-w-1 lg:aspect-h-1">
-            <img className="h-full w-full object-cover object-center " />
-            </div>
-          )}
+        <div className="mb-1">
+          <div className="group relative ">
+            {updated ? (
+              <div className="relative h-2/3 w-2/3 overflow-hidden rounded-lg bg-white group-hover:opacity-75 sm:aspect-w-2 sm:aspect-h-1 sm:h-2/3 mx-auto">
+                <img
+                  src={require(`../images/pics/${imgCasuale}`)}
+                  className="h-full w-full object-cover object-center "
+                />
+              </div>
+            ) : (
+              <div className="relative h-80 w-full overflow-hidden rounded-lg bg-white group-hover:opacity-75 sm:aspect-w-2 sm:aspect-h-1 sm:h-64">
+                <img className="h-full w-full object-cover object-center " />
+              </div>
+            )}
+          </div>
         </div>
-        </div>
-        <form className="flex flex-wrap align-middle w-full justify-center">
-          <label className="text-center m-1 space-y-2">
-            <span className="block text-2xl font-medium text-slate-500">
-              Nome
-            </span>
+        <form className="flex flex-wrap align-middle w-2/3 mx-auto justify-center">
+          <label className="text-center my-1 w-full space-y-2">
             <input
-            value={nomeValue}
-              //style={{ borderColor:  nomeValue === ""? "green" : "red" }}
-              className="rounded-md border-4 p-1 px-2 text-center capitalize focus:outline-none"
+              placeholder="Nome"
+              value={nomeValue}
+              className="rounded-md border-4 p-1 px-0 text-center w-full capitalize focus:outline-none"
               onChange={handleValueNome}
             />
           </label>
-          <label className="text-center m-1 space-y-2">
-            <span className="block text-2xl font-medium text-slate-500">
-              Cognome
-            </span>
+          <label className="text-center my-1 w-full space-y-2">
             <input
-            value={cognomeValue}
-              //style={{ borderColor: cognomeValue === "" ? "green" : "red" }}
-              className="rounded-md border-4 p-1 px-2 text-center capitalize focus:outline-none"
+              placeholder="Cognome"
+              value={cognomeValue}
+              className="rounded-md border-4 p-1 text-center px-0 w-full capitalize focus:outline-none"
               onChange={handleValueCognome}
             />
           </label>
@@ -634,27 +657,25 @@ const Foto = () => {
       </div>
       {/* MODAL */}
       <div></div>
-      {timerPop
-        ? (
-          (
-            <div
-              style={{
-                display: timerPop ? "flex" : "none",
-              }}
-              id="modal"
-              className="fixed top-0 left-0 z-80 w-screen h-screen bg-black/70 flex justify-center items-center"
-            >
-              <img
-                style={{ display: timerPop ? "flex" : "none" }}
-                src={require(`../images/${imgPop}`)}
-                alt=""
-              />
-            </div>
-          ))
-        : ""}
+      {timerPop ? (
+        <div
+          style={{
+            display: timerPop ? "flex" : "none",
+          }}
+          id="modal"
+          className="fixed top-0 left-0 z-80 w-screen h-screen bg-black/70 flex justify-center items-center"
+        >
+          <img
+            style={{ display: timerPop ? "flex" : "none" }}
+            src={require(`../images/${imgPop}`)}
+            alt=""
+          />
+        </div>
+      ) : (
+        ""
+      )}
     </>
   );
 };
 
 export default Foto;
-

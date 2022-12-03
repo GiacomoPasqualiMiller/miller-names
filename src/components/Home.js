@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { useNavigate,useLocation } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
 import Nome from "./Nome";
 import Cognome from "./Cognome";
 import Special from "./Special";
@@ -398,7 +398,7 @@ const miller = [
     Nome: "giacomo",
     Cognome: "pasquali",
     Sezione: "tech",
-    Foto: "jack.webp",
+    Foto: "jack_2.webp",
   },
 ];
 
@@ -415,7 +415,7 @@ const Home = () => {
   const [imgPop, setImgPop] = useState();
   const [timerPop, setTimerPop] = useState(false);
   const navigate = useNavigate();
-  const location=useLocation()
+  const location = useLocation();
   const handleCheck = () => {
     verifyName(millerCognome);
   };
@@ -531,21 +531,32 @@ const Home = () => {
   }, []);
   return (
     <>
-    <div className="w-full h-screen bg-black align-middle">
-      <div className="flex-col flex flex-wrap justify-center p-2 pt-4 h-screen">
-        <h1 className="text-white text-center text-4xl font-bold mb-2">
-          MILLERS
-        </h1>
-        <button className="mt-10 w-1/2 mx-auto shadow-md shadow-white text-white border-red-100 border-2 rounded-md p-2" onClick={()=> navigate('/nome',{state: {millers: miller}})}>
-          Name
-        </button>
-        <button className="mt-5 w-1/2 mx-auto shadow-md shadow-white text-white border-red-100 border-2 rounded-md p-2" onClick={()=> navigate('/immagini',{state: {millers: miller}})}>
-          Pics
-        </button>
-        <button className="mt-5 w-1/2 mx-auto shadow-md shadow-white text-white border-red-100 border-2 rounded-md p-2" onClick={()=> navigate('/special',{state: {millers: miller}})}>
-          Special
-        </button>
-        {/* <Nome
+      <div className="w-full h-screen bg-black align-middle">
+        <div className="flex-col flex flex-wrap justify-center p-2 pt-4 h-screen">
+          <h1 className="text-white text-center text-4xl font-bold mb-2">
+            MILLERS
+          </h1>
+          <button
+            className="mt-10 w-1/2 mx-auto shadow-md shadow-white text-white border-red-100 border-2 rounded-md p-2"
+            onClick={() => navigate("/nome", { state: { millers: miller } })}
+          >
+            Name
+          </button>
+          <button
+            className="mt-5 w-1/2 mx-auto shadow-md shadow-white text-white border-red-100 border-2 rounded-md p-2"
+            onClick={() =>
+              navigate("/immagini", { state: { millers: miller } })
+            }
+          >
+            Pic
+          </button>
+          <button
+            className="mt-5 w-1/2 mx-auto shadow-md shadow-white text-white border-red-100 border-2 rounded-md p-2"
+            onClick={() => navigate("/special", { state: { millers: miller } })}
+          >
+            Special
+          </button>
+          {/* <Nome
           rightAnswer={goodStickerPop}
           badAnswer={badStickerPop}
           millers={miller}
@@ -556,8 +567,8 @@ const Home = () => {
           millers={miller}
         /> */}
 
-        {/* <Special /> */}
-        {/* <span className=" mt-10">Indovina sia il Nome che il Cognome</span>
+          {/* <Special /> */}
+          {/* <span className=" mt-10">Indovina sia il Nome che il Cognome</span>
         <form className="flex flex-wrap align-middle w-full justify-center">
           <label className="text-center m-1 space-y-2">
             <span className="block text-2xl font-medium text-slate-500">
@@ -589,29 +600,27 @@ const Home = () => {
             Controlla!
           </button>
         </div>*/}
-       
-
-      </div>
-      <div></div>
-      {timerPop
-        ? (console.log(`../images/${imgPop}`),
-          (
-            <div
-              style={{
-                display: timerPop ? "flex" : "none",
-              }}
-              id="modal"
-              className="fixed top-0 left-0 z-80 w-screen h-screen bg-black/70 flex justify-center items-center"
-            >
-              <img
-                style={{ display: timerPop ? "flex" : "none" }}
-                src={require(`../images/${imgPop}`)}
-                alt=""
-              />
-            </div>
-          ))
-        : ""}
         </div>
+        <div></div>
+        {timerPop
+          ? (console.log(`../images/${imgPop}`),
+            (
+              <div
+                style={{
+                  display: timerPop ? "flex" : "none",
+                }}
+                id="modal"
+                className="fixed top-0 left-0 z-80 w-screen h-screen bg-black/70 flex justify-center items-center"
+              >
+                <img
+                  style={{ display: timerPop ? "flex" : "none" }}
+                  src={require(`../images/${imgPop}`)}
+                  alt=""
+                />
+              </div>
+            ))
+          : ""}
+      </div>
     </>
   );
 };
