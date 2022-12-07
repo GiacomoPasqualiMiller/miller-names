@@ -7,6 +7,9 @@ import Home from "./components/Home";
 import Nome from "./components/Nome";
 import Foto from "./components/Foto";
 import Special from "./components/Special";
+import Login from "./components/Login";
+import Start from "./components/Start";
+import Classifica from "./components/Classifica";
 
 const App = () => {
   return (
@@ -14,8 +17,11 @@ const App = () => {
       <BrowserRouter>
         <Routes>
           <Route path="/" element={<Home />} />
+          <Route path="/login" element={<Login />} />
           <Route path="/nome" element={<Nome />} />
-          <Route path="/immagini" element={<Foto />} />
+          <Route path="/classifica" element={<Classifica />} />
+          <Route path="/foto" element={<Foto />} />
+          <Route path="/home" element={<Start />} />
           <Route path="/special" element={<Special />} />
 
         </Routes>
