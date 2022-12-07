@@ -14,6 +14,7 @@ const miller = [
     Nome: "federico",
     Cognome: "barenghi",
     Sezione: "tech",
+    Foto: "Federico-Barenghi.png",
   },
   {
     Id: 4,
@@ -26,18 +27,21 @@ const miller = [
     Nome: "martina",
     Cognome: "rosti",
     Sezione: "tech",
+    Foto: "Martina-Rosti.png",
   },
   {
     Id: 6,
     Nome: "mattia",
     Cognome: "pavesi",
     Sezione: "tech",
+    Foto: "Mattia-Pavesi.png",
   },
   {
     Id: 7,
     Nome: "ian",
     Cognome: "cavenaghi",
     Sezione: "tech",
+    Foto: "cavenaghi.png",
   },
   {
     Id: 8,
@@ -62,7 +66,7 @@ const miller = [
     Nome: "federica",
     Cognome: "ferrari",
     Sezione: "accounting",
-    Foto: "Federica-Ferrari.png"
+    Foto: "Federica-Ferrari.png",
   },
   {
     Id: 12,
@@ -75,38 +79,42 @@ const miller = [
     Nome: "marina",
     Cognome: "cormio",
     Sezione: "accounting",
-    Foto: "Marina-Cormio.png"
+    Foto: "Marina-Cormio.png",
   },
   {
     Id: 14,
     Nome: "arianna",
     Cognome: "rozza",
     Sezione: "accounting",
+    Foto: "Arianna-Rozza.png",
   },
   {
     Id: 15,
     Nome: "stefania",
     Cognome: "scarpulla",
     Sezione: "accounting",
-    Foto: "Stefania-Scarpulla.png"
+    Foto: "Stefania-Scarpulla.png",
   },
   {
     Id: 16,
     Nome: "luana",
     Cognome: "visco",
     Sezione: "accounting",
+    Foto: "Luana-Visco.png",
   },
   {
     Id: 18,
     Nome: "monica",
     Cognome: "zuffellato",
     Sezione: "accounting",
+    Foto: "Monica-Zuffellato.png",
   },
   {
     Id: 19,
     Nome: "jessica",
     Cognome: "vanin",
     Sezione: "accounting",
+    Foto: "Jessica-Vanin.png",
   },
   {
     Id: 20,
@@ -173,6 +181,7 @@ const miller = [
     Nome: "valentina",
     Cognome: "bellinzoni",
     Sezione: "paghe",
+    Foto: "Valentina-Mercuri.png",
   },
   {
     Id: 31,
@@ -299,18 +308,21 @@ const miller = [
     Nome: "elena",
     Cognome: "ligorio",
     Sezione: "accounting",
+    Foto: "Elena-Ligorio.png",
   },
   {
     Id: 52,
     Nome: "chiara",
     Cognome: "monachino",
     Sezione: "accounting",
+    Foto: "Chiara-Monachino.png",
   },
   {
     Id: 53,
     Nome: "katia",
     Cognome: "capasso",
     Sezione: "accounting",
+    Foto: "Katia-Capasso.png",
   },
   {
     Id: 54,
@@ -337,24 +349,28 @@ const miller = [
     Nome: "sonali",
     Cognome: "fernando",
     Sezione: "sicurezza",
+    Foto: "Sonali-Fernando.png",
   },
   {
     Id: 59,
     Nome: "katherin",
     Cognome: "machuca",
     Sezione: "sicurezza",
+    Foto: "Kathrin-Machuca.png",
   },
   {
     Id: 60,
     Nome: "luca",
     Cognome: "caffi",
     Sezione: "sicurezza",
+    Foto: "Luca-Caffi.png",
   },
   {
     Id: 61,
     Nome: "matteo",
     Cognome: "caraffini",
     Sezione: "sicurezza",
+    Foto: "Matteo-Caraffini.png",
   },
   {
     Id: 62,
@@ -373,6 +389,7 @@ const miller = [
     Nome: "chiara",
     Cognome: "teresi",
     Sezione: "sicurezza",
+    Foto: "Chiara-Teresi.png",
   },
   {
     Id: 67,
@@ -758,6 +775,14 @@ const millerBackup = [
     Nome: "giacomo",
     Cognome: "pasquali",
     Sezione: "tech",
+    Foto: "Giacomo-Pasquali.png",
+  },
+  {
+    Id: 68,
+    Nome: "greta",
+    Cognome: "cacciabue",
+    Sezione: "accounting",
+    Foto: "Greta-Cacciabue.png",
   },
 ];
 const Foto = () => {
@@ -802,11 +827,11 @@ try{
 
 
   const handleValueNome = (e) => {
-    handleChangeNome(e)
+    handleChangeNome(e);
     setNomeValue(e.target.value.toLowerCase());
   };
   const handleValueCognome = (e) => {
-    handleChangeCognome(e)
+    handleChangeCognome(e);
 
     setCognomeValue(e.target.value.toLowerCase());
   };
@@ -983,20 +1008,17 @@ if(total+1 === 15){
               Nome
             </span>
             <input
-            value={nomeValue}
-              //style={{ borderColor:  nomeValue === ""? "green" : "red" }}
-              className="rounded-md border-4 p-1 px-2 text-center capitalize focus:outline-none"
+              placeholder="Nome"
+              value={nomeValue}
+              className="rounded-md border-4 p-1 px-0 text-center w-full capitalize focus:outline-none"
               onChange={handleValueNome}
             />
           </label>
-          <label className="text-center m-1 space-y-2">
-            <span className="block text-2xl font-medium text-slate-500">
-              Cognome
-            </span>
+          <label className="text-center my-1 w-full space-y-2">
             <input
-            value={cognomeValue}
-              //style={{ borderColor: cognomeValue === "" ? "green" : "red" }}
-              className="rounded-md border-4 p-1 px-2 text-center capitalize focus:outline-none"
+              placeholder="Cognome"
+              value={cognomeValue}
+              className="rounded-md border-4 p-1 text-center px-0 w-full capitalize focus:outline-none"
               onChange={handleValueCognome}
             />
           </label>
@@ -1018,4 +1040,3 @@ if(total+1 === 15){
 };
 
 export default Foto;
-
