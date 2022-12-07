@@ -799,8 +799,8 @@ const Foto = () => {
   const [errorCognome, setErrorCognome] = useState(false);
   const [imgPop, setImgPop] = useState();
   const [timerPop, setTimerPop] = useState(false);
-  const [nomeValue, setNomeValue] = useState([]);
-  const [cognomeValue, setCognomeValue] = useState([]);
+  const [nomeValue, setNomeValue] = useState("");
+  const [cognomeValue, setCognomeValue] = useState("");
   const [imgCasuale, setImgCasuale] = useState(null);
   const [personChoosen, setPersonChoosen] = useState([]);
   const [guess,setGuess] = useState(0);
@@ -862,7 +862,8 @@ try{
     }, 2000);
   };
   const verifyName = (nome, cognome) => {
-    if(nome === personChoosen.Nome && cognome === personChoosen.Cognome){
+    console.log(nome,cognome)
+    if(nome?.replace(/\s/g,'') === personChoosen.Nome.replace(/\s/g,'') && cognome?.replace(/\s/g,'') === personChoosen.Cognome.replace(/\s/g,'')){
       //goodStickerPop()
 setGuess(guess+1)
     }else{
@@ -941,7 +942,7 @@ if(total+1 === 15){
     console.log(choosen.Cognome)
     try {
       require(`../images/pics/${choosen.Cognome}.png`)
-      console.log("OK")
+
        setImgCasuale(choosen.Cognome)
      } catch (err) {
       cognomiRandom(obj)
@@ -1003,10 +1004,7 @@ if(total+1 === 15){
         </div>
         </div>
         <form className="flex flex-wrap align-middle w-full justify-center" style={{display:total >= 15?"None":""}}>
-          <label className="text-center m-1 space-y-2">
-            <span className="block text-2xl font-medium text-slate-500">
-              Nome
-            </span>
+          <label className="text-center m-1 space-y-2  w-full">
             <input
               placeholder="Nome"
               value={nomeValue}
