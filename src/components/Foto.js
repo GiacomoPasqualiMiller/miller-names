@@ -458,7 +458,7 @@ const millerBackup = [
     Nome: "federica",
     Cognome: "ferrari",
     Sezione: "accounting",
-    Foto: "Federica-Ferrari.png"
+    Foto: "Federica-Ferrari.png",
   },
   {
     Id: 12,
@@ -471,7 +471,7 @@ const millerBackup = [
     Nome: "marina",
     Cognome: "cormio",
     Sezione: "accounting",
-    Foto: "Marina-Cormio.png"
+    Foto: "Marina-Cormio.png",
   },
   {
     Id: 14,
@@ -484,7 +484,7 @@ const millerBackup = [
     Nome: "stefania",
     Cognome: "scarpulla",
     Sezione: "accounting",
-    Foto: "Stefania-Scarpulla.png"
+    Foto: "Stefania-Scarpulla.png",
   },
   {
     Id: 16,
@@ -803,28 +803,29 @@ const Foto = () => {
   const [cognomeValue, setCognomeValue] = useState("");
   const [imgCasuale, setImgCasuale] = useState(null);
   const [personChoosen, setPersonChoosen] = useState([]);
-  const [guess,setGuess] = useState(0);
-  const [total,setTotal] = useState(0);
-const [counterController,setCounterController] = useState(true)
+  const [guess, setGuess] = useState(0);
+  const [result, setResult] = useState("bg-[#262A73]");
+  const [total, setTotal] = useState(0);
+  const [counterController, setCounterController] = useState(true);
   const [counter, setCounter] = useState(0);
 
-  useEffect(() =>{
-      if(counterController){
-          setTimeout(()=>setCounter(counter +1), 1000);
-      }
-  },[counter]);
+  useEffect(() => {
+    if (counterController) {
+      setTimeout(() => setCounter(counter + 1), 1000);
+    }
+  }, [counter]);
 
-  const segnaRisultato = async() =>{
-try{
-  let responseCliente = await api.post('classifica',{ris:{Punteggio:guess,Tempo:counter,Utente:sessionStorage.getItem('usernameMillerGames')}}, )
-}catch{
-
-}
-
-
-  }
-
-
+  const segnaRisultato = async () => {
+    try {
+      let responseCliente = await api.post("classifica", {
+        ris: {
+          Punteggio: guess,
+          Tempo: counter,
+          Utente: sessionStorage.getItem("usernameMillerGames"),
+        },
+      });
+    } catch {}
+  };
 
   const handleValueNome = (e) => {
     handleChangeNome(e);
@@ -862,25 +863,36 @@ try{
     }, 2000);
   };
   const verifyName = (nome, cognome) => {
-    console.log(nome,cognome)
-    if(nome?.replace(/\s/g,'') === personChoosen.Nome.replace(/\s/g,'') && cognome?.replace(/\s/g,'') === personChoosen.Cognome.replace(/\s/g,'')){
+    console.log(nome, cognome);
+    if (
+      nome?.replace(/\s/g, "") === personChoosen.Nome.replace(/\s/g, "") &&
+      cognome?.replace(/\s/g, "") === personChoosen.Cognome.replace(/\s/g, "")
+    ) {
       //goodStickerPop()
-setGuess(guess+1)
-    }else{
+      setGuess(guess + 1);
+      setResult("bg-[#2bb00d]");
+      setTimeout(() => {
+        setResult("bg-[#262A73]");
+      }, 500);
+    } else {
+      setResult("bg-[#ff0000]");
+      setTimeout(() => {
+        setResult("bg-[#262A73]");
+      }, 500);
       //badStickerPop();
     }
 
-setTotal(total+1)
+    setTotal(total + 1);
 
-if(total+1 === 15){
-  setCounterController(false)
-  segnaRisultato();
-  return
-}
+    if (total + 1 === 15) {
+      setCounterController(false);
+      segnaRisultato();
+      return;
+    }
 
-    setNomeValue("")
-    setCognomeValue("")
-    setMillers(millers.filter(m=>m.Id !== personChoosen.Id))
+    setNomeValue("");
+    setCognomeValue("");
+    setMillers(millers.filter((m) => m.Id !== personChoosen.Id));
     //reloadPage();
   };
 
@@ -938,27 +950,27 @@ if(total+1 === 15){
     }
   };
   const cognomiRandom = (obj) => {
-    let choosen= obj[Math.floor(Math.random()*obj.length)]
-    console.log(choosen.Cognome)
+    let choosen = obj[Math.floor(Math.random() * obj.length)];
+    console.log(choosen.Cognome);
     try {
-      require(`../images/pics/${choosen.Cognome}.png`)
+      require(`../images/pics/${choosen.Cognome}.png`);
 
-       setImgCasuale(choosen.Cognome)
-     } catch (err) {
-      cognomiRandom(obj)
-     }
-   
-    setPersonChoosen(choosen)
+      setImgCasuale(choosen.Cognome);
+    } catch (err) {
+      cognomiRandom(obj);
+    }
+
+    setPersonChoosen(choosen);
 
     setUpdated(true);
   };
-  const imgCreator=()=>{
+  const imgCreator = () => {
     cognomiRandom(millers);
-  }
+  };
   useEffect(() => {
     const fetchData = async () => {
       //const millerImg= miller.filter((elm)=> elm.Foto !== undefined)
-      imgCreator()
+      imgCreator();
     };
     fetchData();
   }, [millers]);
@@ -966,45 +978,63 @@ if(total+1 === 15){
   return (
     <>
       <div className="flex-col flex flex-wrap justify-center bg-gradient-to-br from-[#262A73] to-[#060044] p-2 pt-4 w-full h-screen">
-      <div className="w-50 h-50 absolute top-2 left-2">
-          <button
-            style={{ color: "white" }}
-            onClick={() => navigate("/home")}
-            id="back-btn"
-            className="w-50 h-50 bg-gray-700 focus:outlink-none focus:ring-4 focus:ring-gray-700 ring-gray-200 rounded-lg p-2.5 "
-          >
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              width="16"
-              height="16"
-              fill="currentColor"
-              className="bi bi-arrow-left"
-              viewBox="0 0 16 16"
+        {/* <span className="" style={{ display: total >= 15 ? "None" : "" }}>
+          Indovina il Nome e il Cognome
+        </span> */}
+        <div
+          className="w-full flex justify-between mb-10 px-3 row font-semibold"
+          style={{ display: total >= 15 ? "None" : "" }}
+        >
+          <div className="bg-[#262A73] rounded-lg w-1/3 justify-center flex flex-wrap p-2 shadow-white shadow-md animate-bounce">
+            <h1 className="text-white w-full text-center">TIMER</h1>
+            <span
+              className="font-normal"
+              style={{ display: total >= 15 ? "None" : "" }}
             >
-              <path
-                fillRule="evenodd"
-                d="M15 8a.5.5 0 0 0-.5-.5H2.707l3.147-3.146a.5.5 0 1 0-.708-.708l-4 4a.5.5 0 0 0 0 .708l4 4a.5.5 0 0 0 .708-.708L2.707 8.5H14.5A.5.5 0 0 0 15 8z"
-              />
-            </svg>
-          </button>
+              {counter + " "}
+            </span>
+          </div>
+          <div
+            className={`${result} rounded-lg w-1/3 justify-center flex flex-wrap p-2 shadow-white shadow-md`}
+          >
+            <h1 className="text-white w-full text-center">PUNTEGGIO</h1>
+            <span
+              className="font-normal"
+              style={{ display: total >= 15 ? "None" : "" }}
+            >
+              {total > 0 ? guess + "/" + total : ""}
+            </span>
+          </div>
         </div>
-        <span className="" style={{display:total >= 15?"None":""}}>Indovina il Nome e il Cognome</span>
-        <span className="" style={{display:total >= 15?"None":""}}>{counter + " " +(total>0?guess+"/"+total:"")}</span>
-        
-        <h1 style={{display:total >= 15?"":"None"}}>{guess+"/"+total}</h1>
-        <div style={{display:total >=15?"None":""}} className="mt-2 space-y-12 lg:grid lg:grid-cols-3 lg:gap-x-6 lg:space-y-0 mx-10">
-        <div className="group relative ">
-        {imgCasuale ? (<div className="relative h-60 w-60 overflow-hidden rounded-lg bg-white group-hover:opacity-75 sm:aspect-w-2 sm:aspect-h-1 sm:h-64 lg:aspect-w-1 lg:aspect-h-1 mx-auto">
-        <img src={require(`../images/pics/${imgCasuale}.png`)} className="h-full w-full object-cover object-center " />
-          </div>): (
-            <div className="relative h-80 w-full overflow-hidden rounded-lg bg-white group-hover:opacity-75 sm:aspect-w-2 sm:aspect-h-1 sm:h-64 lg:aspect-w-1 lg:aspect-h-1">
-            <img className="h-full w-full object-cover object-center " />
-            </div>
-          )}
+
+        {/* TOTALE */}
+        <div className="w-full bg-[#262A73] flex flex-wrap justify-center p-5 shadow-white shadow-md rounded-lg" style={{ display: total >= 15 ? "" : "None" }}>
+          <h1 className="text-center text-white text-4xl" >
+            <span className="font-bold w-full text-2xl">IL TUO PUNTEGGIO È:</span>  {guess + "/" + total}
+          </h1>
         </div>
+
+        <div style={{ display: total >= 15 ? "None" : "" }} className="mb-1 ">
+          <div className="group relative ">
+            {imgCasuale ? (
+              <div className="relative h-2/3 w-2/3 overflow-hidden rounded-lg bg-white group-hover:opacity-75 sm:aspect-w-2 sm:aspect-h-1 sm:h-2/3 mx-auto">
+                <img
+                  src={require(`../images/pics/${imgCasuale}.png`)}
+                  className="h-full w-full object-cover object-center "
+                />
+              </div>
+            ) : (
+              <div className="relative h-80 w-full overflow-hidden rounded-lg bg-white group-hover:opacity-75 sm:aspect-w-2 sm:aspect-h-1 sm:h-64">
+                <img className="h-full w-full object-cover object-center " />
+              </div>
+            )}
+          </div>
         </div>
-        <form className="flex flex-wrap align-middle w-full justify-center" style={{display:total >= 15?"None":""}}>
-          <label className="text-center m-1 space-y-2  w-full">
+        <form
+          className="flex flex-wrap align-middle w-2/3 mx-auto justify-center"
+          style={{ display: total >= 15 ? "None" : "" }}
+        >
+          <label className="text-center my-1 w-full space-y-2">
             <input
               placeholder="Nome"
               value={nomeValue}
@@ -1021,18 +1051,18 @@ if(total+1 === 15){
             />
           </label>
         </form>
-        <div className="flex mx-auto p-4 mt-4">
+        <div
+          className="flex mx-auto p-4 mt-4"
+          style={{ display: total >= 15 ? "None" : "" }}
+        >
           <button
-            //style={{ backgroundColor:  "green"}}
             onClick={() => handleCheck()}
-            className="bg-black border border-white shadow-white rounded-md p-3 text-2xl text-white font-bold uppercase shadow-md"
+            className="bg-[#262A73] shadow-white shadow-md rounded-md p-3 text-2xl text-white font-bold uppercase "
           >
             Avanti
           </button>
         </div>
       </div>
-
-   
     </>
   );
 };
