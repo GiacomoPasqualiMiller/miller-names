@@ -550,12 +550,12 @@ const Home = () => {
           >
             Pic
           </button>
-          <button
+          {/* <button
             className="mt-5 w-1/2 mx-auto shadow-md shadow-white text-white border-red-100 border-2 rounded-md p-2"
             onClick={() => navigate("/special", { state: { millers: miller } })}
           >
             Special
-          </button>
+          </button> */}
           {/* <Nome
           rightAnswer={goodStickerPop}
           badAnswer={badStickerPop}

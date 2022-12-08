@@ -975,43 +975,85 @@ const Foto = () => {
     fetchData();
   }, [millers]);
 
+  document.addEventListener("touchstart", handleTouchStart, false); //bind & fire - evento di inizio tocco
+  document.addEventListener("touchmove", handleTouchMove, false); // bind & fire - evento di movimento durante il tocco
+  var xDown = null;
+  var yDown = null;
+  function handleTouchStart(evt) {
+    xDown = evt.touches[0].clientX;
+    yDown = evt.touches[0].clientY;
+  }
+  function handleTouchMove(evt) {
+    if (!xDown || !yDown) {
+      return;
+    } //nessun movimento
+    var xUp = evt.touches[0].clientX;
+    var yUp = evt.touches[0].clientY;
+    var xDiff = xDown - xUp;
+    var yDiff = yDown - yUp;
+    if (Math.abs(xDiff) > Math.abs(yDiff)) {
+      /*Trovo quello più significativo sulle assi X e Y*/
+      if (xDiff > 0) {
+        /* swipe sinistra */
+        console.log("Swipe SINISTRA");
+        handleCheck()
+      } else {
+        /* swipe destra */
+        console.log("Swipe DESTRA");
+      } //right
+    } else {
+      if (yDiff > 0) {
+        /* swipe alto */
+        console.log("Swipe ALTO");
+      } else {
+        /* swipe basso */
+        console.log("Swipe BASSO");
+      }
+    }
+    /* reset values */
+    xDown = null;
+    yDown = null;
+  }
+  //Gesture
   return (
     <>
       <div className="flex-col flex flex-wrap justify-center bg-gradient-to-br from-[#262A73] to-[#060044] p-2 pt-4 w-full h-screen">
-        {/* <span className="" style={{ display: total >= 15 ? "None" : "" }}>
-          Indovina il Nome e il Cognome
-        </span> */}
         <div
           className="w-full flex justify-between mb-10 px-3 row font-semibold"
           style={{ display: total >= 15 ? "None" : "" }}
         >
           <div className="bg-[#262A73] rounded-lg w-1/3 justify-center flex flex-wrap p-2 shadow-white shadow-md animate-bounce">
             <h1 className="text-white w-full text-center">TIMER</h1>
-            <span
-              className="font-normal"
-              style={{ display: total >= 15 ? "None" : "" }}
-            >
-              {counter + " "}
-            </span>
+            <span className="font-normal">{counter + " "}</span>
           </div>
           <div
             className={`${result} rounded-lg w-1/3 justify-center flex flex-wrap p-2 shadow-white shadow-md`}
           >
             <h1 className="text-white w-full text-center">PUNTEGGIO</h1>
-            <span
-              className="font-normal"
-              style={{ display: total >= 15 ? "None" : "" }}
-            >
-              {total > 0 ? guess + "/" + total : ""}
+            <span className="font-normal">
+              {total > 0 ? guess + "/" + total : "0/0"}
             </span>
           </div>
         </div>
 
         {/* TOTALE */}
-        <div className="w-full bg-[#262A73] flex flex-wrap justify-center p-5 shadow-white shadow-md rounded-lg" style={{ display: total >= 15 ? "" : "None" }}>
-          <h1 className="text-center text-white text-4xl" >
-            <span className="font-bold w-full text-2xl">IL TUO PUNTEGGIO È:</span>  {guess + "/" + total}
-          </h1>
+        <div style={{ display: total >= 15 ? "" : "None" }}>
+          <div className="w-full bg-[#262A73] flex flex-wrap justify-center p-5 h-60 rounded-lg">
+            <h1 className="text-center text-white text-6xl my-auto ">
+              <span className="font-bold w-full text-2xl mb-3">
+                IL TUO PUNTEGGIO È:
+              </span>{" "}
+              {guess + "/" + total}
+            </h1>
+          </div>
+          <div className="flex w-full p-4 mt-4 ">
+            <button
+              onClick={() => window.location.reload()}
+              className="bg-[#262A73] shadow-white shadow-md rounded-md p-3 text-2xl text-white font-semibold uppercase mx-auto"
+            >
+              gioca ancora
+            </button>
+          </div>
         </div>
 
         <div style={{ display: total >= 15 ? "None" : "" }} className="mb-1 ">
@@ -1024,7 +1066,7 @@ const Foto = () => {
                 />
               </div>
             ) : (
-              <div className="relative h-80 w-full overflow-hidden rounded-lg bg-white group-hover:opacity-75 sm:aspect-w-2 sm:aspect-h-1 sm:h-64">
+              <div className="relative h-2/3 w-2/3 overflow-hidden rounded-lg bg-white group-hover:opacity-75 sm:aspect-w-2 sm:aspect-h-1 sm:h-64">
                 <img className="h-full w-full object-cover object-center " />
               </div>
             )}
@@ -1057,7 +1099,7 @@ const Foto = () => {
         >
           <button
             onClick={() => handleCheck()}
-            className="bg-[#262A73] shadow-white shadow-md rounded-md p-3 text-2xl text-white font-bold uppercase "
+            className="bg-[#262A73] shadow-white shadow-md rounded-md p-3 text-2xl text-white font-semibold uppercase "
           >
             Avanti
           </button>
