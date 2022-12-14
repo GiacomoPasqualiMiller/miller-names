@@ -6,7 +6,7 @@ const Start = () => {
 
   return (
     <div
-      className="w-screen h-screen flex justify-center items-center
+      className="snow w-screen h-screen flex justify-center items-center
     bg-gradient-to-br from-[#262A73] to-[#060044]"
     >
       <div className="w-full flex flex-wrap justify-center p-5 rounded-lg">

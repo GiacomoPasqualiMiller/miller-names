@@ -1,10 +1,18 @@
 import React, { useState } from "react";
 import api from "./api/api";
 import { useNavigate } from "react-router-dom";
-
+import soundFile from "./jingle.mp3"
 const Login = () => {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
+  let sound = new Audio(soundFile);
+  
+
+
+
+
+
+
   const navigate = useNavigate();
 
   const HandleLogin = async (event) => {
@@ -22,15 +30,24 @@ const Login = () => {
     } else {
       console.log(response.data.utente);
       sessionStorage.setItem("usernameMillerGames", username);
+      
+      sound.play();
+      sound.addEventListener('ended', function() {
+        this.currentTime = 0;
+        this.play();
+    }, false);
       navigate("/home");
     }
   };
 
   return (
+<>
+
     <div
-      className="w-screen h-screen flex justify-center items-center
+      className="snow w-screen h-screen flex justify-center items-center
     bg-gradient-to-br from-[#262A73] to-[#060044] p-2"
     >
+      
       <form
         className=" bg-white rounded-xl shadow-lg shadow-white space-y-5 px-2 py-6 flex flex-wrap align-middle w-10/12 mx-auto justify-center border-2 border-[#262A73]"
         onSubmit={HandleLogin}
@@ -70,6 +87,7 @@ const Login = () => {
         </button>
       </form>
     </div>
+    </>
   );
 };
 

@@ -667,12 +667,6 @@ const millerBackup = [
     Sezione: "paghe",
   },
   {
-    Id: 47,
-    Nome: "roberta",
-    Cognome: "mazzola",
-    Sezione: "paghe",
-  },
-  {
     Id: 48,
     Nome: "diego",
     Cognome: "albergoni",
@@ -864,9 +858,10 @@ const Foto = () => {
   };
   const verifyName = (nome, cognome) => {
     console.log(nome, cognome);
+    console.log(personChoosen.Nome,personChoosen.Cognome)
     if (
-      nome?.replace(/\s/g, "") === personChoosen.Nome.replace(/\s/g, "") &&
-      cognome?.replace(/\s/g, "") === personChoosen.Cognome.replace(/\s/g, "")
+      nome.replace(/\s/g, "") === personChoosen.Nome.replace(/\s/g, "") &&
+      cognome.replace(/\s/g, "") === personChoosen.Cognome.replace(/\s/g, "")
     ) {
       //goodStickerPop()
       setGuess(guess + 1);
@@ -884,7 +879,7 @@ const Foto = () => {
 
     setTotal(total + 1);
 
-    if (total + 1 === 15) {
+    if (total + 1 === 10) {
       setCounterController(false);
       segnaRisultato();
       return;
@@ -893,6 +888,7 @@ const Foto = () => {
     setNomeValue("");
     setCognomeValue("");
     setMillers(millers.filter((m) => m.Id !== personChoosen.Id));
+  
     //reloadPage();
   };
 
@@ -909,7 +905,6 @@ const Foto = () => {
         ) {
           setSearchNome(e.target.value.toLowerCase());
           millerX.push(millers[i]);
-          console.log(millerX);
         }
       }
       setMillerNome(millerX);
@@ -940,7 +935,6 @@ const Foto = () => {
         }
       }
       setMillerCognome(millerX);
-      console.log(millerX);
       /* Cambio colore Input Cognome*/
       if (millerX == "") {
         setErrorCognome(false);
@@ -950,17 +944,16 @@ const Foto = () => {
     }
   };
   const cognomiRandom = (obj) => {
-    let choosen = obj[Math.floor(Math.random() * obj.length)];
-    console.log(choosen.Cognome);
+    let indx = Math.floor(Math.random() * obj.length)
+    let choosen = obj[indx];
     try {
       require(`../images/pics/${choosen.Cognome}.png`);
-
-      setImgCasuale(choosen.Cognome);
+      setPersonChoosen(choosen);
     } catch (err) {
       cognomiRandom(obj);
     }
 
-    setPersonChoosen(choosen);
+    
 
     setUpdated(true);
   };
@@ -975,6 +968,16 @@ const Foto = () => {
     fetchData();
   }, [millers]);
 
+const restart = () =>{
+
+  setTotal(0);
+  setMillers(millerBackup)
+}
+
+  useEffect(()=>
+  {
+    setImgCasuale(personChoosen?.Cognome);
+  },[personChoosen])
   document.addEventListener("touchstart", handleTouchStart, false); //bind & fire - evento di inizio tocco
   document.addEventListener("touchmove", handleTouchMove, false); // bind & fire - evento di movimento durante il tocco
   var xDown = null;
@@ -1017,10 +1020,11 @@ const Foto = () => {
   //Gesture
   return (
     <>
-      <div className="flex-col flex flex-wrap justify-center bg-gradient-to-br from-[#262A73] to-[#060044] p-2 pt-4 w-full h-screen">
+   
+      <div className="snow flex-col flex flex-wrap justify-center bg-gradient-to-br from-[#262A73] to-[#060044] p-2 pt-4 w-full h-screen">
         <div
           className="w-full flex justify-between mb-10 px-3 row font-semibold"
-          style={{ display: total >= 15 ? "None" : "" }}
+          style={{ display: total >= 10 ? "None" : "" }}
         >
           <div className="bg-[#262A73] rounded-lg w-1/3 justify-center flex flex-wrap p-2 shadow-white shadow-md animate-bounce">
             <h1 className="text-white w-full text-center">TIMER</h1>
@@ -1037,7 +1041,7 @@ const Foto = () => {
         </div>
 
         {/* TOTALE */}
-        <div style={{ display: total >= 15 ? "" : "None" }}>
+        <div style={{ display: total >= 10 ? "" : "None" }}>
           <div className="w-full bg-[#262A73] flex flex-wrap justify-center p-5 h-60 rounded-lg">
             <h1 className="text-center text-white text-6xl my-auto ">
               <span className="font-bold w-full text-2xl mb-3">
@@ -1048,7 +1052,7 @@ const Foto = () => {
           </div>
           <div className="flex w-full p-4 mt-4 ">
             <button
-              onClick={() => window.location.reload()}
+              onClick={() => restart()}
               className="bg-[#262A73] shadow-white shadow-md rounded-md p-3 text-2xl text-white font-semibold uppercase mx-auto"
             >
               gioca ancora
@@ -1056,7 +1060,7 @@ const Foto = () => {
           </div>
         </div>
 
-        <div style={{ display: total >= 15 ? "None" : "" }} className="mb-1 ">
+        <div style={{ display: total >= 10 ? "None" : "" }} className="mb-1 ">
           <div className="group relative ">
             {imgCasuale ? (
               <div className="relative h-2/3 w-2/3 overflow-hidden rounded-lg bg-white group-hover:opacity-75 sm:aspect-w-2 sm:aspect-h-1 sm:h-2/3 mx-auto">
@@ -1074,7 +1078,7 @@ const Foto = () => {
         </div>
         <form
           className="flex flex-wrap align-middle w-2/3 mx-auto justify-center"
-          style={{ display: total >= 15 ? "None" : "" }}
+          style={{ display: total >= 10 ? "None" : "" }}
         >
           <label className="text-center my-1 w-full space-y-2">
             <input
@@ -1095,7 +1099,7 @@ const Foto = () => {
         </form>
         <div
           className="flex mx-auto p-4 mt-4"
-          style={{ display: total >= 15 ? "None" : "" }}
+          style={{ display: total >= 10 ? "None" : "" }}
         >
           <button
             onClick={() => handleCheck()}
